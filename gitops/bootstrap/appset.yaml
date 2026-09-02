@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset
+  namespace: argocd
+spec:
+  # Use Go's engine so we can use basename/path
+  goTemplate: true
+  # The engine silently fails on missing keys by default
+  goTemplateOptions: ["missingkey=error"]
+  # Generate from all subfolders from my repo under apps/
+  generators:
+    - git:
+        repoURL: https://github.com/SomeSandwich/home-ops.git
+        revision: main
+        directories:
+          - path: gitops/apps/*
+  template:
+    # The Application name will be folder + "-app"
+    # Creative, I know.
+    metadata:
+      name: "{{.path.basename}}-app"
+    spec:
+      project: default
+      # Describes the manifests of the application,
+      # which is everything under apps/<app-folder>/
+      source:
+        repoURL: https://github.com/SomeSandwich/home-ops.git
+        targetRevision: main
+        path: "{{.path.path}}"
+      # Give the application its own namespace
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{.path.basename}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          # Needed for larger manifests
+          - ServerSideApply=true
+          # ArgoCD does a dry run to check for resource kinds
+          # it doesn't yet recognize. This breaks some things
+          # so turn it off.
+          - SkipDryRunOnMissingResource=true
+        automated:
+          prune: true
+          selfHeal: true
+

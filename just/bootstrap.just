@@ -4,6 +4,7 @@ full:
     just bootstrap::cilium
     just secrets::restore_sealed_secrets_private_key
     just bootstrap::sealed_secrets
+    just bootstrap::argocd
 
 [doc("Bootstrap VMs and talos cluster")]
 [working-directory('../infrastructure')]
@@ -52,6 +53,27 @@ sealed_secrets:
         --set fullnameOverride=sealed-secrets-controller
     # Wait for it to deploy
     kubectl rollout status deployment/sealed-secrets-controller -n sealed-secrets
+
+[doc("Bootstrap ArgoCD")]
+[working-directory('../gitops')]
+argocd:
+    helm install argocd \
+        --repo https://argoproj.github.io/argo-helm \
+        argo-cd \
+        --namespace argocd \
+        --create-namespace \
+        --version 10.6.4 \
+        --set configs.secret.createSecret=false
+    # We don't let ArgoCD generate the secret, we supply one:
+    kubectl apply -f bootstrap/argocd-secret.yaml
+    # Needed to be able to sync from repo.
+    kubectl apply -f bootstrap/argocd-repo-secret.yaml
+    # Wait for ArgoCD to deploy.
+    kubectl rollout status deployment/argocd-server -n argocd --timeout=300s
+    # Technically not needed as it'll get loaded on sync, this just speeds it up a little.
+    kubectl apply -f bootstrap/argocd.yaml --force-conflicts --server-side
+    # Sync everything else from the repo.
+    kubectl apply -f root.yaml
 
 [private]
 wait_for_api:

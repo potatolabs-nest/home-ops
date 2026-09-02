@@ -1,3 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 10.6.4
+    helm:
+      values: |
+        configs:
+          secret:
+            createSecret: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated:
+      prune: true
+      selfHeal: true
+---
 apiVersion: v1
 kind: Service
 metadata:
