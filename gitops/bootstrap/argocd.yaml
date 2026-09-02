@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-server-ip
+  namespace: argocd
+spec:
+  type: ClusterIP
+  externalIPs:
+    - 172.20.0.200
+  selector:
+    app.kubernetes.io/name: argocd-server
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+

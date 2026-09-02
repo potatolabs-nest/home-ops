@@ -1,0 +1,10 @@
+creation_rules:
+  - path_regex: infrastructure/terraform(\.encrypted)?.tfstate$
+    age: age1rfl8xufxpstj5uu6x6urshf3c3fp0eljwva0vrstgms787ahu49sd2kx27
+  - path_regex: infrastructure/kubeconfig(\.encrypted)?.yaml$
+    age: age1rfl8xufxpstj5uu6x6urshf3c3fp0eljwva0vrstgms787ahu49sd2kx27
+  - path_regex: infrastructure/talosconfig(\.encrypted)?.yaml$
+    age: age1rfl8xufxpstj5uu6x6urshf3c3fp0eljwva0vrstgms787ahu49sd2kx27
+    encrypted_regex: '^(ca|crt|key)$'
+  - path_regex: infrastructure/sealed-secrets-key(\.encrypted)?.yaml$
+    age: age1rfl8xufxpstj5uu6x6urshf3c3fp0eljwva0vrstgms787ahu49sd2kx27

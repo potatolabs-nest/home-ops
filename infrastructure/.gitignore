@@ -1,0 +1,4 @@
+secrets.auto.tfvars
+talosconfig.yaml
+kubeconfig.yaml
+sealed-secrets-key.yaml
