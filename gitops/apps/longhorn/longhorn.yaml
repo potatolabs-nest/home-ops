@@ -13,6 +13,17 @@ spec:
         values: |
           preUpgradeChecker:
             jobEnabled: false
+
+          httproute:
+            enabled: true
+            parentRefs:
+              - name: main
+                namespace: kube-system
+                sectionName: https
+            hostnames:
+              - longhorn.potatolabs.uk
+            path: /
+            pathType: PathPrefix
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
@@ -27,54 +38,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: longhorn
-  namespace: argocd
-spec:
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-  project: default
-  sources:
-    - chart: longhorn
-      repoURL: https://charts.longhorn.io/
-      targetRevision: v1.12.1
-      helm:
-        values: |
-          preUpgradeChecker:
-            jobEnabled: false
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: longhorn-system
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        pod-security.kubernetes.io/enforce: privileged
-        pod-security.kubernetes.io/audit: privileged
-        pod-security.kubernetes.io/warn: privileged
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: longhorn-ui-https
-  namespace: longhorn-system
-spec:
-  parentRefs:
-    - name: main
-      namespace: kube-system
-      sectionName: https
-  hostnames:
-    - longhorn.potatolabs.uk
-  rules:
-    - backendRefs:
-        - name: longhorn-frontend
-          port: 80
 
