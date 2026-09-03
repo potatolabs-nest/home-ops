@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     chart: metrics-server
-    repoURL: https://github.io # Official Metrics Server Helm repo
+    repoURL: https://kubernetes-sigs.github.io/metrics-server
     targetRevision: 3.14.0
     helm:
       releaseName: metrics-server
