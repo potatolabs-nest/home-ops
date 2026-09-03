@@ -17,7 +17,7 @@ spec:
           secret:
             createSecret: false
           params:
-            server.insecure: true
+            server.insecure: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
