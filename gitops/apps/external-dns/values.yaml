@@ -7,7 +7,7 @@ provider:
       pullPolicy: IfNotPresent
     env:
       - name: ADGUARD_HOME_URL
-        value: "http://172.0.0.8"
+        value: "http://172.20.0.8/control"
       - name: ADGUARD_HOME_USER
         valueFrom:
           secretKeyRef:
@@ -25,17 +25,18 @@ provider:
     livenessProbe:
       httpGet:
         path: /healthz
-        port: 80
+        port: 8888
     readinessProbe:
       httpGet:
         path: /healthz 
-        port: 80 
+        port: 8888
 
     service:
-      port: 80
+      port: 8888
 sources:
   - gateway-httproute
 policy: sync
 domainFilters:
   - potatolabs.uk
-
+extraArgs:
+  - --webhook-provider-url=http://localhost:8888
