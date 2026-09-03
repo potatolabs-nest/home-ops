@@ -1,0 +1,29 @@
+provider:
+  name: webhook
+  webhook:
+    image:
+      repository: ghcr.io/zekker6/external-dns-provider-adguard
+      tag: v1.2.0
+      pullPolicy: IfNotPresent
+    env:
+      - name: ADGUARD_HOME_URL
+        value: "http://172.0.0.8"
+      - name: ADGUARD_HOME_USER
+        valueFrom:
+          secretKeyRef:
+            name: external-dns
+            key: username
+      - name: ADGUARD_HOME_PASS
+        valueFrom:
+          secretKeyRef:
+            name: external-dns
+            key: password
+
+    service:
+      port: 80
+sources:
+  - gateway-httproute
+policy: sync
+domainFilters:
+  - potatolabs.uk
+
