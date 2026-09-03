@@ -1,35 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: platform
-  namespace: argocd
-spec:
-  clusterResourceWhitelist:
-    - group: "*"
-      kind: "*"
-  destinations:
-    - namespace: "*"
-      server: "*"
-  namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"
-  sourceRepos:
-    - "*"
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: headlamp
-  labels:
-    name: headlamp
----
-apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: headlamp
   namespace: argocd
 spec:
-  project: platform
+  project: default
   source:
     repoURL: https://kubernetes-sigs.github.io/headlamp/
     chart: headlamp
@@ -59,8 +34,8 @@ spec:
     server: https://kubernetes.default.svc
     namespace: headlamp
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
