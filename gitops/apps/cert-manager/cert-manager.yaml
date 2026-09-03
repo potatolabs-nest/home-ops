@@ -1,0 +1,78 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://charts.jetstack.io
+    chart: cert-manager
+    targetRevision: v1.21.1
+    helm:
+      values: |
+        installCRDs: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+  annotations:
+    # Must come after the cert-manager applications.
+    # It defaults to 0 anyway but this is more explicit.
+    argocd.argoproj.io/sync-wave: "0"
+    # If resources doesn't exist ArgoCD may complain.
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  acme:
+    # Use the staging endpoint during testing!
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: homelab@hietala.xyz
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+      - dns01:
+          # Use the namecheap webhook
+          webhook:
+            # Same identifier the webhook defined above.
+            groupName: acme.namecheap.com
+            solverName: namecheap
+            config:
+              apiKeySecretRef:
+                name: cloudflare-api-token-secret
+                key: api-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: potatolabs-uk
+  # Must match the namespace of the Gateway
+  namespace: kube-system
+  annotations:
+    # References the issuer so must be synced after.
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  # Gateway references this certificate using this name.
+  secretName: potatolabs-uk-tls
+  dnsNames:
+    - "*.potatolabs.uk"
+    - "potatolabs.uk"
+  issuerRef:
+    # Switch to `letsencrypt-prod` later.
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+
