@@ -40,20 +40,15 @@ spec:
   acme:
     # Use the staging endpoint during testing!
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: homelab@hietala.xyz
+    email: homelab@potatolabs.uk
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
       - dns01:
-          # Use the namecheap webhook
-          webhook:
-            # Same identifier the webhook defined above.
-            groupName: acme.namecheap.com
-            solverName: namecheap
-            config:
-              apiKeySecretRef:
-                name: cloudflare-api-token-secret
-                key: api-token
+          cloudflare:
+            apiKeySecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
