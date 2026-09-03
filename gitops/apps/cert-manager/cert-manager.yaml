@@ -64,7 +64,6 @@ spec:
   secretName: potatolabs-uk-tls
   dnsNames:
     - "*.potatolabs.uk"
-    - "potatolabs.uk"
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
