@@ -18,6 +18,18 @@ provider:
           secretKeyRef:
             name: external-dns
             key: password
+    securityContext:
+      runAsUser: 0
+      runAsNonRoot: false
+      allowPrivilegeEscalation: true
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 80
+    readinessProbe:
+      httpGet:
+        path: /healthz 
+        port: 80 
 
     service:
       port: 80
