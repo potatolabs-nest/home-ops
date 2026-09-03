@@ -47,7 +47,7 @@ spec:
           cloudflare:
             email: hieucckha@gmail.com
             apiKeySecretRef:
-              name: cloudflare-api-token-secret
+              name: cloudflare-api-token
               key: api-token
 ---
 apiVersion: cert-manager.io/v1
