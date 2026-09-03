@@ -39,3 +39,21 @@ spec:
     automated:
       prune: true
       selfHeal: true
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: headlamp-https
+  namespace: headlamp
+spec:
+  parentRefs:
+    - name: main
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - headlamp.potatolabs.uk
+  rules:
+    - backendRefs:
+        - name: headlamp
+          port: 4466
+
