@@ -38,14 +38,14 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   acme:
-    # Use the staging endpoint during testing!
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: homelab@potatolabs.uk
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: hieucckha@gmail.com
     privateKeySecretRef:
-      name: letsencrypt-staging
+      name: letsencrypt-prod
     solvers:
       - dns01:
           cloudflare:
+            email: hieucckha@gmail.com
             apiKeySecretRef:
               name: cloudflare-api-token-secret
               key: api-token
@@ -67,7 +67,6 @@ spec:
     - "*.potatolabs.uk"
     - "potatolabs.uk"
   issuerRef:
-    # Switch to `letsencrypt-prod` later.
-    name: letsencrypt-staging
+    name: letsencrypt-prod
     kind: ClusterIssuer
 
