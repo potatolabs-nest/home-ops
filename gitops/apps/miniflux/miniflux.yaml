@@ -30,7 +30,7 @@ spec:
                 key: DATABASE_URL
 
           RUN_MIGRATIONS: "1"
-          BASE_URL: https://miniflux.potatolabs.uk
+          BASE_URL: https://rss.potatolabs.uk
           ADMIN_USERNAME:
             valueFrom:
               secretKeyRef:
@@ -62,7 +62,7 @@ spec:
       namespace: kube-system
       sectionName: https
   hostnames:
-    - miniflux.potatolabs.uk
+    - rss.potatolabs.uk
   rules:
     - backendRefs:
         - name: miniflux
