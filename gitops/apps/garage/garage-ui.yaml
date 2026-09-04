@@ -21,7 +21,7 @@ spec:
 
           garage:
             endpoint: http://garage.garage.svc.cluster.local:3900
-            admin_endpoint: http://garage.garage.svc.cluster.local:3903
+            admin_endpoint: http://garage-admin.garage.svc.cluster.local:3903
             region: garage
             admin_token: ""
             existingSecret:
