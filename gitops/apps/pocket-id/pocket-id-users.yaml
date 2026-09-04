@@ -6,3 +6,4 @@ metadata:
 spec:
   email:
     value: "hieucckha@gmail.com"
+  admin: true
