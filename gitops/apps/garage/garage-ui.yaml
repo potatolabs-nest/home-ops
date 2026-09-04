@@ -1,0 +1,89 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: garage-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://helm.noste.dev
+    chart: garage-ui
+    targetRevision: 0.12.0
+    helm:
+      values: |
+        replicaCount: 1
+
+        config:
+          server:
+            domain: garage.potatolabs.uk
+            protocol: https
+            root_url: https://garage.potatolabs.uk
+
+          garage:
+            endpoint: http://garage.garage.svc.cluster.local:3900
+            admin_endpoint: http://garage.garage.svc.cluster.local:3903
+            region: garage
+            admin_token: ""
+            existingSecret:
+              name: garage-ui-secrets
+              key: admin-token
+
+          auth:
+            admin:
+              enabled: true
+              username: admin
+              password: ""
+              existingSecret:
+                name: garage-ui-secrets
+                key: admin-password
+
+            oidc:
+              enabled: false
+
+          cors:
+            enabled: true
+            allowed_origins:
+              - https://garage.potatolabs.uk
+            allow_credentials: true
+
+        ingress:
+          enabled: false
+
+        service:
+          type: ClusterIP
+          port: 80
+
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+
+        extraObjects:
+          - apiVersion: gateway.networking.k8s.io/v1
+            kind: HTTPRoute
+            metadata:
+              name: garage-ui
+              namespace: garage
+            spec:
+              parentRefs:
+                - name: main
+                  namespace: kube-system
+                  sectionName: https
+              hostnames:
+                - garage.potatolabs.uk
+              rules:
+                - backendRefs:
+                    - name: garage-ui
+                      port: 80
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: garage
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
