@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pocket-id-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: ghcr.io/aclerici38/charts
+    chart: pocket-id-operator
+    targetRevision: 0.14.3
+    helm:
+      releaseName: pocket-id-operator
+      values: |
+        instance:
+          enabled: false
+
+        pocket-id-instance:
+          enabled: true
+          name: pocket-id
+          spec:
+            appUrl: https://fish.potatolabs.uk
+            encryptionKey:
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-encryption-key
+                  key: encryptionKey
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pocket-id
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pocket-id-https
+  namespace: pocket-id
+spec:
+  parentRefs:
+    - name: main
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - fish.potatolabs.uk
+  rules:
+    - backendRefs:
+        - name: miniflux
+          port: 8080
+
