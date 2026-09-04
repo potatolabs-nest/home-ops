@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.gabe565.com
-    chart: gabe565/miniflux
+    chart: miniflux
     targetRevision: 0.9.2
     helm:
       values: |
