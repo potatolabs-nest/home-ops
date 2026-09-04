@@ -18,15 +18,16 @@ spec:
           enabled: false
 
         pocket-id-instance:
-          enabled: true
-          name: pocket-id
-          spec:
-            appUrl: https://fish.potatolabs.uk
-            encryptionKey:
-              valueFrom:
-                secretKeyRef:
-                  name: pocket-id-encryption-key
-                  key: encryptionKey
+          instance:
+            enabled: true
+            name: pocket-id
+            spec:
+              appUrl: https://fish.potatolabs.uk
+              encryptionKey:
+                valueFrom:
+                  secretKeyRef:
+                    name: pocket-id-encryption-key
+                    key: encryptionKey
   destination:
     server: https://kubernetes.default.svc
     namespace: pocket-id
@@ -51,6 +52,6 @@ spec:
     - fish.potatolabs.uk
   rules:
     - backendRefs:
-        - name: miniflux
-          port: 8080
+        - name: pocket-id
+          port: 1411
 
