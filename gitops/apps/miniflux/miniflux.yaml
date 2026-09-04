@@ -1,0 +1,70 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: miniflux
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.gabe565.com
+    chart: gabe565/miniflux
+    targetRevision: 0.9.2
+    helm:
+      values: |
+        postgresql:
+          enabled: false
+
+        image:
+          repository: ghcr.io/miniflux/miniflux
+          tag: 2.3.3
+          pullPolicy: IfNotPresent
+
+        controller:
+          strategy: Recreate
+
+        env:
+          DATABASE_URL:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux
+                key: DATABASE_URL
+
+          RUN_MIGRATIONS: "1"
+          BASE_URL: https://miniflux.potatolabs.uk
+          ADMIN_USERNAME:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux
+                key: ADMIN_USERNAME
+          ADMIN_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux
+                key: ADMIN_PASSWORD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: miniflux
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: miniflux-https
+  namespace: miniflux
+spec:
+  parentRefs:
+    - name: main
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - miniflux.potatolabs.uk
+  rules:
+    - backendRefs:
+        - name: miniflux
+          port: 8080
+

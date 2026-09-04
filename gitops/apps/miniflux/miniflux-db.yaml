@@ -1,0 +1,26 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: postgres-miniflux
+  namespace: data-postgres
+spec:
+  cluster:
+    name: postgres
+  name: miniflux
+  owner: miniflux
+  databaseReclaimPolicy: retain
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: miniflux
+  namespace: data-postgres
+spec:
+  cluster:
+    name: postgres
+  name: miniflux
+  login: true
+  superuser: false
+  passwordSecret:
+    name: miniflux-db-credentials
+  databaseRoleReclaimPolicy: retain
