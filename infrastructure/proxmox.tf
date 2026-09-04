@@ -33,7 +33,7 @@ resource "proxmox_virtual_environment_vm" "talos" {
     interface    = "virtio0"
     iothread     = true
     discard      = "on"
-    size         = 40
+    size         = 256
   }
   initialization {
     datastore_id = "local-lvm"
