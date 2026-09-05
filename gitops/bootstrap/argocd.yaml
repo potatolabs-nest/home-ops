@@ -16,8 +16,29 @@ spec:
         configs:
           secret:
             createSecret: false
+
           params:
             server.insecure: "true"
+
+          cm:
+           url: https://argocd.potatolabs.uk
+           oidc.config: |
+             name: Pocket ID
+             issuer: $argocd-pocket-id:issuer_url
+             clientID: $argocd-pocket-id:client_id
+             clientSecret: $argocd-pocket-id:client_secret
+             requestedScopes:
+               - openid
+               - profile
+               - email
+               - groups
+             enablePKCEAuthentication: true
+
+          rbac:
+            policy.default: role:readonly
+            scopes: '[groups]'
+            policy.csv: |
+              g, argocd-admins, role:admin
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

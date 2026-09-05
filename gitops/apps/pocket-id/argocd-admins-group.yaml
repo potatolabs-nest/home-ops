@@ -1,0 +1,12 @@
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: argocd-admins
+  namespace: pocket-id
+  annotations:
+    argocd.argoproj.io/sync-wave: "-20"
+spec:
+  friendlyName: Argo CD Administrators
+  users:
+    usernames:
+      - hieu

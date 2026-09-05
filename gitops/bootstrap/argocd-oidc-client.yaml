@@ -1,0 +1,22 @@
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: argocd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  name: Argo CD
+  clientID: argocd
+  callbackUrls:
+    - https://argocd.potatolabs.uk/auth/callback
+  logoutCallbackUrls:
+    - https://argocd.potatolabs.uk
+  launchUrl: https://argocd.potatolabs.uk
+  isPublic: false
+  pkceEnabled: true
+  skipConsent: true
+  secret:
+    name: argocd-pocket-id
+    additionalLabels:
+      app.kubernetes.io/part-of: argocd
