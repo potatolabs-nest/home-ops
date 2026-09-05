@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://helm.noste.dev
     chart: garage-ui
-    targetRevision: 0.12.0
+    targetRevision: 0.12.1
     helm:
       values: |
         replicaCount: 1
