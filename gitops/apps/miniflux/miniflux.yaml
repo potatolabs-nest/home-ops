@@ -41,6 +41,31 @@ spec:
               secretKeyRef:
                 name: miniflux
                 key: ADMIN_PASSWORD
+          OAUTH2_PROVIDER
+            value: oidc
+          OAUTH2_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-pocket-id
+                key: client_id
+          OAUTH2_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-pocket-id
+                key: client_secret
+          OAUTH2_OIDC_DISCOVERY_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-pocket-id
+                key: issuer_url
+          OAUTH2_REDIRECT_URL
+            value: https://miniflux.potatolabs.uk/oauth2/oidc/callback
+          OAUTH2_OIDC_PROVIDER_NAME
+            value: Pocket ID
+          OAUTH2_USER_CREATION
+            value: "1"
+          DISABLE_LOCAL_AUTH
+            value: "0"
   destination:
     server: https://kubernetes.default.svc
     namespace: miniflux
@@ -58,13 +83,13 @@ metadata:
   namespace: miniflux
 spec:
   parentRefs:
-    - name: main
+    main
       namespace: kube-system
       sectionName: https
   hostnames:
     - rss.potatolabs.uk
   rules:
     - backendRefs:
-        - name: miniflux
+        miniflux
           port: 8080
 

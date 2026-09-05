@@ -1,0 +1,20 @@
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: miniflux
+  namespace: miniflux
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  name: Miniflux
+  clientID: miniflux
+  callbackUrls:
+    - https://miniflux.potatolabs.uk/oauth2/oidc/callback
+  logoutCallbackUrls:
+    - https://miniflux.potatolabs.uk
+  launchUrl: https://miniflux.potatolabs.uk
+  isPublic: false
+  pkceEnabled: false
+  skipConsent: true
+  secret:
+    name: miniflux-pocket-id
