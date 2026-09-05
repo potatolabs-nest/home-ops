@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/SomeSandwich/home-ops.git
+    repoURL: https://git.potatolabs.uk/homelabs/home-ops.git
     targetRevision: main
     path: gitops/bootstrap
   destination:
