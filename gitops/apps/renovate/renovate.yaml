@@ -17,6 +17,8 @@ spec:
         cronjob:
           schedule: "0 1 * * *"
         renovate:
+          existingSecret: renovate-token
+
           config: |
             {
               "platform": "forgejo",
