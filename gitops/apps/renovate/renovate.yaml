@@ -19,10 +19,9 @@ spec:
         renovate:
           config: |
             {
-              "platform": "forgejo",
-              "endpoint": "https://git.hietala.xyz",
-              "repositories": ["tree/home-ops"],
-              "gitAuthor": "Renovate Bot <renovate@git.hietala.xyz>",
+              "platform": "github",
+              "repositories": ["SomeSandwich/home-ops"],
+              "gitAuthor": "Renovate Bot <renovate@users.noreply.github.com>",
               "automerge": false
             }
   destination:
