@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: renovate
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://docs.renovatebot.com/helm-charts
+    chart: renovate
+    targetRevision: 46.275.0
+    helm:
+      values: |
+        existingSecret: renovate-token
+        cronjob:
+          schedule: "0 1 * * *"
+        renovate:
+          config: |
+            {
+              "platform": "forgejo",
+              "endpoint": "https://git.hietala.xyz",
+              "repositories": ["tree/home-ops"],
+              "gitAuthor": "Renovate Bot <renovate@git.hietala.xyz>",
+              "automerge": false
+            }
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: renovate
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
