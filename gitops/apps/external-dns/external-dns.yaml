@@ -14,7 +14,7 @@ spec:
       helm:
         valueFiles:
           - $values/gitops/apps/external-dns/values.yaml
-    - repoURL: https://github.com/SomeSandwich/home-ops.git
+    - repoURL: https://git.potatolabs.uk/homelabs/home-ops.git
       targetRevision: HEAD
       ref: values
   destination:
