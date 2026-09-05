@@ -1,3 +1,14 @@
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: headlamp-admins
+  namespace: headlamp
+spec:
+  friendlyName: headlamp-admins
+  users:
+    usernames:
+      - hieu
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:

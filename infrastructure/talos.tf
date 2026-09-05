@@ -64,6 +64,21 @@ data "talos_machine_configuration" "control_machine_config" {
           disabled = true
         }
       }
+    }),
+    # Trust OIDC
+    yamlencode({
+      cluster = {
+        apiServer = {
+          extraArgs = {
+            "oidc-issuer-url"      = "https://fish.potatolabs.uk"
+            "oidc-client-id"       = "headlamp"
+            "oidc-username-claim"  = "preferred_username"
+            "oidc-username-prefix" = "pocketid:"
+            "oidc-groups-claim"    = "groups"
+            "oidc-groups-prefix"   = "pocketid:"
+          }
+        }
+      }
     })
   ]
 }
