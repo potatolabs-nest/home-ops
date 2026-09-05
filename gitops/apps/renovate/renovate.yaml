@@ -19,9 +19,10 @@ spec:
         renovate:
           config: |
             {
-              "platform": "github",
-              "repositories": ["SomeSandwich/home-ops"],
-              "gitAuthor": "Renovate Bot <renovate@users.noreply.github.com>",
+              "platform": "forgejo",
+              "endpoint": "https://git.potatolabs.uk"
+              "repositories": ["homelabs/home-ops"],
+              "gitAuthor": "Renovate Bot <renovate@potatolabs.uk>",
               "automerge": false
             }
   destination:

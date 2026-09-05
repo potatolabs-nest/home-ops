@@ -11,7 +11,7 @@ spec:
   # Generate from all subfolders from my repo under apps/
   generators:
     - git:
-        repoURL: https://github.com/SomeSandwich/home-ops.git
+        repoURL: https://git.potatolabs.uk/homelabs/home-ops.git
         revision: main
         directories:
           - path: gitops/apps/*
@@ -25,7 +25,7 @@ spec:
       # Describes the manifests of the application,
       # which is everything under apps/<app-folder>/
       source:
-        repoURL: https://github.com/SomeSandwich/home-ops.git
+        repoURL: https://git.potatolabs.uk/homelabs/home-ops.git
         targetRevision: main
         path: "{{.path.path}}"
       # Give the application its own namespace
