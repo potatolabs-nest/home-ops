@@ -20,7 +20,7 @@ spec:
           config: |
             {
               "platform": "forgejo",
-              "endpoint": "https://git.potatolabs.uk"
+              "endpoint": "https://git.potatolabs.uk",
               "repositories": ["homelabs/home-ops"],
               "gitAuthor": "Renovate Bot <renovate@potatolabs.uk>",
               "automerge": false
