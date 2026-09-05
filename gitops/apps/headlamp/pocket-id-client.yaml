@@ -1,0 +1,25 @@
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: headlamp
+  namespace: pocket-id
+spec:
+  name: Headlamp
+  clientID: headlamp
+  description: Kubernetes Headlamp
+  isPublic: false
+  pkceEnabled: true
+  skipConsent: true
+
+  callbackUrls:
+    - https://headlamp.potatolabs.uk/oidc-callback
+
+  logoutCallbackUrls:
+    - https://headlamp.potatolabs.uk/
+
+  secret:
+    name: headlamp-oidc
+    keys:
+      clientID: OIDC_CLIENT_ID
+      clientSecret: OIDC_CLIENT_SECRET
+      issuerUrl: OIDC_ISSUER_URL
