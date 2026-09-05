@@ -58,14 +58,10 @@ spec:
               secretKeyRef:
                 name: miniflux-pocket-id
                 key: issuer_url
-          OAUTH2_REDIRECT_URL
-            value: https://miniflux.potatolabs.uk/oauth2/oidc/callback
-          OAUTH2_OIDC_PROVIDER_NAME
-            value: Pocket ID
-          OAUTH2_USER_CREATION
-            value: "1"
-          DISABLE_LOCAL_AUTH
-            value: "0"
+          OAUTH2_REDIRECT_URL: https://miniflux.potatolabs.uk/oauth2/oidc/callback
+          OAUTH2_OIDC_PROVIDER_NAME: "Pocket ID"
+          OAUTH2_USER_CREATION: "1"
+          DISABLE_LOCAL_AUTH: "1"
   destination:
     server: https://kubernetes.default.svc
     namespace: miniflux
