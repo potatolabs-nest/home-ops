@@ -9,10 +9,10 @@ spec:
   name: Miniflux
   clientID: miniflux
   callbackUrls:
-    - https://miniflux.potatolabs.uk/oauth2/oidc/callback
+    - https://rss.potatolabs.uk/oauth2/oidc/callback
   logoutCallbackUrls:
-    - https://miniflux.potatolabs.uk
-  launchUrl: https://miniflux.potatolabs.uk
+    - https://rss.potatolabs.uk
+  launchUrl: https://rss.potatolabs.uk
   isPublic: false
   pkceEnabled: false
   skipConsent: true

@@ -31,46 +31,57 @@ spec:
 
           RUN_MIGRATIONS: "1"
           BASE_URL: https://rss.potatolabs.uk
+
           ADMIN_USERNAME:
             valueFrom:
               secretKeyRef:
                 name: miniflux
                 key: ADMIN_USERNAME
+
           ADMIN_PASSWORD:
             valueFrom:
               secretKeyRef:
                 name: miniflux
                 key: ADMIN_PASSWORD
-          OAUTH2_PROVIDER
-            value: oidc
-          OAUTH2_CLIENT_ID
+
+          OAUTH2_PROVIDER: oidc
+
+          OAUTH2_CLIENT_ID:
             valueFrom:
               secretKeyRef:
                 name: miniflux-pocket-id
                 key: client_id
-          OAUTH2_CLIENT_SECRET
+
+          OAUTH2_CLIENT_SECRET:
             valueFrom:
               secretKeyRef:
                 name: miniflux-pocket-id
                 key: client_secret
-          OAUTH2_OIDC_DISCOVERY_ENDPOINT
+
+          OAUTH2_OIDC_DISCOVERY_ENDPOINT:
             valueFrom:
               secretKeyRef:
                 name: miniflux-pocket-id
                 key: issuer_url
-          OAUTH2_REDIRECT_URL: https://miniflux.potatolabs.uk/oauth2/oidc/callback
+
+          OAUTH2_REDIRECT_URL: https://rss.potatolabs.uk/oauth2/oidc/callback
           OAUTH2_OIDC_PROVIDER_NAME: "Pocket ID"
           OAUTH2_USER_CREATION: "1"
-          DISABLE_LOCAL_AUTH: "1"
+
+          # Keep local login until OIDC is confirmed working.
+          DISABLE_LOCAL_AUTH: "0"
+
   destination:
     server: https://kubernetes.default.svc
     namespace: miniflux
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
+
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -79,13 +90,12 @@ metadata:
   namespace: miniflux
 spec:
   parentRefs:
-    main
+    - name: main
       namespace: kube-system
       sectionName: https
   hostnames:
     - rss.potatolabs.uk
   rules:
     - backendRefs:
-        miniflux
+        - name: miniflux
           port: 8080
-
