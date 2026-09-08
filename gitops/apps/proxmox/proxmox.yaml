@@ -51,4 +51,21 @@ spec:
     - backendRefs:
         - name: proxmox-external
           port: 8006
-
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: BackendTLSPolicy
+metadata:
+  name: proxmox-backend-tls
+  namespace: proxmox
+spec:
+  targetRefs:
+    - group: ""
+      kind: Service
+      name: proxmox-external
+      sectionName: https
+  validation:
+    caCertificateRefs:
+      - group: ""
+        kind: ConfigMap
+        name: proxmox-ca
+    hostname: pve.potatolabs.uk
