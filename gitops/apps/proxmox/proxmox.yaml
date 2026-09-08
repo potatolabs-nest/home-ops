@@ -35,22 +35,47 @@ endpoints:
     conditions:
       ready: true
 ---
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: proxmox
+  name: proxmox-ca
   namespace: proxmox
-spec:
-  parentRefs:
-    - name: gateway-private
-      namespace: kube-system
-      sectionName: https
-  hostnames:
-    - pve.potatolabs.uk
-  rules:
-    - backendRefs:
-        - name: proxmox-external
-          port: 8006
+data:
+  ca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIF3TCCA8WgAwIBAgIURNo9JKafihTR66SMcANCNYW7clowDQYJKoZIhvcNAQEL
+    BQAwdjEkMCIGA1UEAwwbUHJveG1veCBWaXJ0dWFsIEVudmlyb25tZW50MS0wKwYD
+    VQQLDCQwYTExMmM0Yi05NTgzLTQ3ZTQtYTI2OC1kNTkwYjBjNjk5ZmQxHzAdBgNV
+    BAoMFlBWRSBDbHVzdGVyIE1hbmFnZXIgQ0EwHhcNMjYwODIxMDkxNDI1WhcNMzYw
+    ODE4MDkxNDI1WjB2MSQwIgYDVQQDDBtQcm94bW94IFZpcnR1YWwgRW52aXJvbm1l
+    bnQxLTArBgNVBAsMJDBhMTEyYzRiLTk1ODMtNDdlNC1hMjY4LWQ1OTBiMGM2OTlm
+    ZDEfMB0GA1UECgwWUFZFIENsdXN0ZXIgTWFuYWdlciBDQTCCAiIwDQYJKoZIhvcN
+    AQEBBQADggIPADCCAgoCggIBANEDihOFvedyyI4RU9NuaiKA5EcCUoFhpa6kjRrO
+    jjkkgePz8ezRkJybrKbTSftCYX6Q0DINVVzc23J8bl0jHRpcNNR/pXfZpk0QESyE
+    KEvsg/fqdmn7QLKXABrhDJ1w4a6zwmYlk1VpSrHWJ8jXWQlfvbeec3jfifqP5jZC
+    cL4lPvhDU5Llgeln3JbacfZythEFyM602VupwKWIFHMx56ioFV8jq1yPbIWd+n/H
+    Rwx8KZmMO1Srfd+ySC0AhJixH2ZD5+Ta33otcHb98M8mDgBfU2jZk9E/IL7R1u3W
+    YTplEUnMsLDeH4o2Hlmm3qlro958H/xotGM9NKkVqCrRXHg3J3X+IVfc+Pmd6y/C
+    Y/4m7UOPFZWSB9FihqEga5bBPvmi3JRMhM0HX6ADxSgQlom1m0E5xm8mVvAv3cxF
+    aNH3+PB6/XDS9GBP6Mvxb9AkvSI3q8KEfXNkIsog9I8bXldpiPsBzvsX2F3w3gtr
+    V93QBM8VMI8j22KqBSlJ0SXCzijMXxY7Log8iLWMz1U4gjmdedU7peX4nIp5S83A
+    udxmB/m1IyDWTs0144HH+KyT/l60EF2pGzm5VAu5UVc0++7jo7C+PxXiVVfElLRj
+    S3ZW2k1nfOOxZUvcHTTD0JonZpCG6i/NJYKLvfxyW6bAwkkSWnL60bgWb+ar7hxf
+    8H9pAgMBAAGjYzBhMB0GA1UdDgQWBBRrQytw/Yrs2qaULisyB6kdZovBXTAfBgNV
+    HSMEGDAWgBRrQytw/Yrs2qaULisyB6kdZovBXTAPBgNVHRMBAf8EBTADAQH/MA4G
+    A1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEANjyN4M7Xp91lmX350wlg
+    O1SQHZcTCeIJZSfJA428uufwR+JZBYAuWZpse14cdUY6BZ5FWlAKbmS5fpDKPHTB
+    9IQkDMdCuBMdFrw3ynqamT4rKL3XZiVoW8v9rp7f2o8C6MWzwQvCVQPjppGhVMRB
+    khx6TU3cF5x7Rg2nzG51zlv5nXznjgAssFaG3tmwYlry3ZrKqTkghtJIsSBznEED
+    pPEVvM0YAml32r1fZN6CVgJ0yQJ8dbD/NtuZBgCvG0om00qAJIazdIv5wnoL1uv+
+    qm780Ki1KXA8L/78oQcpK1sPI8ngRwkxDaFRRoneTSXcVRUh3xW3rRtT+swYo8Y9
+    01cmPdNCCLhPi0xglQ3bjL/maogpE0MJoeVsNpvDB7/jmRkLoYTn4t5QLW0NtCrO
+    m5Q8hxZ+MMYYxcq/Y0AfWmvZ/ncJfhwUogGoQ9j7JbNO0BMFLQWSpR7wN+j6ziEn
+    zmsZoc+4x8v4MdTa9d9zlqgk/8a3JlqDJBhPps7VY8AuzuI01uBzYnm1uQc24riy
+    /IA5UPWKG5K37bCjo/eE8FGMaP7Z0/3H96xDXauTGZldJZxvqt04poA84ewg2nZu
+    PCuqDVWPCTny8OEyIo+N459hSmAyKQ4IyrxV4jcVy1sjCMtcGPW+oZVIQVvPVGUF
+    OXipwC/9YKHpfmjN3Dr4X8M=
+    -----END CERTIFICATE-----
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: BackendTLSPolicy
@@ -69,3 +94,20 @@ spec:
         kind: ConfigMap
         name: proxmox-ca
     hostname: pve.potatolabs.uk
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: proxmox
+  namespace: proxmox
+spec:
+  parentRefs:
+    - name: gateway-private
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - pve.potatolabs.uk
+  rules:
+    - backendRefs:
+        - name: proxmox-external
+          port: 8006
