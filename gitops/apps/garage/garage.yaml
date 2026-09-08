@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/deuxfleurs-org/garage.git
+    repoURL: https://git.deuxfleurs.fr/Deuxfleurs/garage.git
     targetRevision: v2.3.0
     path: script/helm/garage
     helm:
