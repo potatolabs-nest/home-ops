@@ -22,6 +22,10 @@ spec:
 
           cm:
            url: https://argocd.potatolabs.uk
+
+           resource.exclusions: |
+             []
+
            oidc.config: |
              name: Pocket ID
              issuer: $argocd-pocket-id:issuer_url
