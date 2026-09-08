@@ -45,7 +45,7 @@ metadata:
   namespace: pocket-id
 spec:
   parentRefs:
-    - name: main
+    - name: gateway-public
       namespace: kube-system
       sectionName: https
   hostnames:

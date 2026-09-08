@@ -68,7 +68,7 @@ spec:
               namespace: garage
             spec:
               parentRefs:
-                - name: main
+                - name: gateway-public
                   namespace: kube-system
                   sectionName: https
               hostnames:

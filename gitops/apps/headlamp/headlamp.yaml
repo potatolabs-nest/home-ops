@@ -66,7 +66,7 @@ metadata:
   namespace: headlamp
 spec:
   parentRefs:
-    - name: main
+    - name: gateway-private
       namespace: kube-system
       sectionName: https
   hostnames:

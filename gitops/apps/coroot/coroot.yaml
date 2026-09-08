@@ -81,7 +81,6 @@ spec:
         factor: 2
         maxDuration: 3m
 ---
----
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -89,7 +88,7 @@ metadata:
   namespace: coroot
 spec:
   parentRefs:
-    - name: main
+    - name: gateway-private
       namespace: kube-system
       sectionName: https
   hostnames:

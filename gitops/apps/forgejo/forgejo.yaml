@@ -41,7 +41,7 @@ metadata:
   namespace: forgejo
 spec:
   parentRefs:
-    - name: main
+    - name: gateway-public
       namespace: kube-system
       sectionName: https
   hostnames:
