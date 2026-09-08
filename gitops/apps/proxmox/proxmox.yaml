@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: proxmox
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxmox-external
+  namespace: proxmox
+spec:
+  ports:
+    - name: https
+      port: 8006
+      targetPort: 8006
+      protocol: TCP
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: proxmox-external
+  namespace: proxmox
+  labels:
+    kubernetes.io/service-name: proxmox-external
+    endpointslice.kubernetes.io/managed-by: cluster-admins
+addressType: IPv4
+ports:
+  - name: https
+    protocol: TCP
+    appProtocol: https
+    port: 8006
+endpoints:
+  - addresses:
+      - 172.20.0.10
+    conditions:
+      ready: true
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: proxmox
+  namespace: proxmox
+spec:
+  parentRefs:
+    - name: gateway-private
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - pve.potatolabs.uk
+  rules:
+    - backendRefs:
+        - name: proxmox-external
+          port: 8006
+
