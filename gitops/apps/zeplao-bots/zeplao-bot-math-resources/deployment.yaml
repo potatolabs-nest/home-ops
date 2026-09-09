@@ -33,7 +33,11 @@ spec:
 
       containers:
         - name: bot
+<<<<<<< Updated upstream
           image: git.potatolabs.uk/zeplao/zeplao-bot-math:sha-3b2c99fa4885a29029e5afaf00520502e0787457
+=======
+          image: git.potatolabs.uk/zeplao/zeplao-bot-math:latest
+>>>>>>> Stashed changes
           imagePullPolicy: IfNotPresent
 
           env:
@@ -49,6 +53,9 @@ spec:
                   name: zeplao-bot-math
                   key: ZEPLAO_BOT_API
                   optional: true
+
+            - name: MATHBOT_STATE
+              value: /app/data/state.json
 
           resources:
             requests:
@@ -67,3 +74,11 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
 
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: zeplao-bot-math-data
