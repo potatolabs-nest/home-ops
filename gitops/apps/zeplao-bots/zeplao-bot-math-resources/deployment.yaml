@@ -50,23 +50,6 @@ spec:
                   key: ZEPLAO_BOT_API
                   optional: true
 
-            - name: DNSE_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: zeplao-bot-math
-                  key: DNSE_API_KEY
-                  optional: true
-
-            - name: DNSE_API_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: zeplao-bot-math
-                  key: DNSE_API_SECRET
-                  optional: true
-
-            - name: BOCO_STATE
-              value: /app/data/state.json
-
           resources:
             requests:
               cpu: 25m
@@ -83,13 +66,4 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-
-          volumeMounts:
-            - name: data
-              mountPath: /app/data
-
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: zeplao-bot-math-data
 
