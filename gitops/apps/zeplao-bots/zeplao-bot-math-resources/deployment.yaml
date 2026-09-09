@@ -33,11 +33,7 @@ spec:
 
       containers:
         - name: bot
-<<<<<<< Updated upstream
           image: git.potatolabs.uk/zeplao/zeplao-bot-math:sha-65aad7031d44e8db694e7867969f33dfc1f28f18
-=======
-          image: git.potatolabs.uk/zeplao/zeplao-bot-math:sha-65aad7031d44e8db694e7867969f33dfc1f28f18
->>>>>>> Stashed changes
           imagePullPolicy: IfNotPresent
 
           env:
