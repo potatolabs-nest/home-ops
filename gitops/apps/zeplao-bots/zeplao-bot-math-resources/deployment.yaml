@@ -40,27 +40,27 @@ spec:
             - name: ZEPLAO_BOT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: zeplao-bot-boco
+                  name: zeplao-bot-math
                   key: ZEPLAO_BOT_TOKEN
 
             - name: ZEPLAO_BOT_API
               valueFrom:
                 secretKeyRef:
-                  name: zeplao-bot-boco
+                  name: zeplao-bot-math
                   key: ZEPLAO_BOT_API
                   optional: true
 
             - name: DNSE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: zeplao-bot-boco
+                  name: zeplao-bot-math
                   key: DNSE_API_KEY
                   optional: true
 
             - name: DNSE_API_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: zeplao-bot-boco
+                  name: zeplao-bot-math
                   key: DNSE_API_SECRET
                   optional: true
 
