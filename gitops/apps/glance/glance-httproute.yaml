@@ -12,6 +12,6 @@ spec:
     - dashboard.potatolabs.uk
   rules:
     - backendRefs:
-        - name: glance
+        - name: glance-glance
           port: 8080
 
