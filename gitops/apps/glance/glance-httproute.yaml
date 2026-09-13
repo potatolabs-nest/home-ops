@@ -9,7 +9,7 @@ spec:
       namespace: kube-system
       sectionName: https
   hostnames:
-    - dashboard.potatolabs.uk
+    - dash.potatolabs.uk
   rules:
     - backendRefs:
         - name: glance-glance
