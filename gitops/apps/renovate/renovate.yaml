@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://docs.renovatebot.com/helm-charts
     chart: renovate
-    targetRevision: 46.289.3
+    targetRevision: 46.290.0
     helm:
       values: |
         existingSecret: renovate-token
