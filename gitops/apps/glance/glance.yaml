@@ -18,6 +18,13 @@ spec:
           enabled: true
           username: admin
 
+        networkPolicy:
+          enabled: true
+          ingressFrom:
+            - namespaceSelector:
+                matchLabels:
+                  kubernetes.io/metadata.name: kube-system
+
   destination:
     server: https://kubernetes.default.svc
     namespace: glance
