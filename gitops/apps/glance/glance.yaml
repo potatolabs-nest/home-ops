@@ -15,8 +15,7 @@ spec:
       releaseName: glance
       values: |
         auth:
-          enabled: true
-          username: admin
+          enabled: false
 
         networkPolicy:
           enabled: false
