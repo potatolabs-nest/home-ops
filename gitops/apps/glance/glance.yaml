@@ -18,12 +18,15 @@ spec:
           enabled: true
           username: admin
 
-        networkPolicy:
+        gatewayAPI:
           enabled: true
-          ingressFrom:
-            - namespaceSelector:
-                matchLabels:
-                  kubernetes.io/metadata.name: kube-system
+          httpRoutes:
+            - parentRefs:
+                - name: gateway-private
+                  namespace: kube-system
+                  sectionName: https
+              hostnames:
+                - dash.potatolabs.uk
 
   destination:
     server: https://kubernetes.default.svc
