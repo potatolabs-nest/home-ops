@@ -18,6 +18,9 @@ spec:
           enabled: true
           username: admin
 
+        networkPolicy:
+          enabled: false
+
         gatewayAPI:
           enabled: true
           httpRoutes:
