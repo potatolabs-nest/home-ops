@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: glance
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://repo.helmforge.dev
+    chart: glance
+    targetRevision: 1.0.0
+
+    helm:
+      releaseName: glance
+      values: |
+        auth:
+          enabled: true
+          username: admin
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: glance
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+

@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: glance
+  namespace: glance
+spec:
+  parentRefs:
+    - name: gateway-private
+      namespace: kube-system
+      sectionName: https
+  hostnames:
+    - dashboard.potatolabs.uk
+  rules:
+    - backendRefs:
+        - name: glance
+          port: 8080
+
