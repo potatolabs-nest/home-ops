@@ -33,7 +33,7 @@ spec:
 
       containers:
         - name: bot
-          image: git.potatolabs.uk/zeplao/zeplao-bot-boco:sha-4b6e78364c03a0cdb55f36d68d3cbf195e7357ba
+          image: git.potatolabs.uk/zeplao/zeplao-bot-boco:sha-2a08d17785560d828f570b0808686a2d4b053663
           imagePullPolicy: IfNotPresent
 
           env:
