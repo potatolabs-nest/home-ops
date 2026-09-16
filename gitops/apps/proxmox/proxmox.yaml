@@ -93,10 +93,7 @@ spec:
       - group: ""
         kind: ConfigMap
         name: proxmox-ca
-    hostname: pve.potatolabs.uk
-    subjectAltNames:
-      - type: Hostname
-        hostname: pve01.home.arpa
+    hostname: pve01.home.arpa
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
