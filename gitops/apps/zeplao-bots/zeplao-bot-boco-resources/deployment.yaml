@@ -25,6 +25,11 @@ spec:
       automountServiceAccountToken: false
       terminationGracePeriodSeconds: 30
 
+      dnsConfig:
+        options:
+          - name: ndots
+            values: "2"
+
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
