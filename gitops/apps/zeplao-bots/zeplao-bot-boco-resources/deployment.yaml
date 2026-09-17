@@ -28,7 +28,7 @@ spec:
       dnsConfig:
         options:
           - name: ndots
-            values: "2"
+            value: "2"
 
       securityContext:
         fsGroup: 1000
