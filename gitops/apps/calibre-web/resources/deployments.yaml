@@ -7,7 +7,6 @@ metadata:
     app.kubernetes.io/name: calibre-web
 spec:
   replicas: 1
-  # RWO volumes should not be mounted by old and new pods simultaneously.
   strategy:
     type: Recreate
   selector:
@@ -23,7 +22,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: calibre-web
-          image: lscr.io/linuxserver/calibre-web:latest
+          image: crocodilestick/calibre-web-automated:latest
           imagePullPolicy: Always
           env:
             - name: PUID
@@ -31,9 +30,9 @@ spec:
             - name: PGID
               value: "1000"
             - name: TZ
-              value: Etc/UTC
-            - name: UMASK
-              value: "022"
+              value: Asia/Ho_Chi_Minh
+            - name: NETWORK_SHARE_MODE
+              value: false
           ports:
             - name: http
               containerPort: 8083
@@ -62,12 +61,12 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: books
-              mountPath: /books
+            - name: library
+              mountPath: /calibre-library
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: calibre-web-config
-        - name: books
+        - name: library
           persistentVolumeClaim:
-            claimName: calibre-web-books
+            claimName: calibre-web-library

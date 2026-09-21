@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: calibre-web-books
+  name: calibre-web-library
   namespace: calibre-web
   annotations:
     # Keep the library if the Application is removed or the manifest is pruned.
