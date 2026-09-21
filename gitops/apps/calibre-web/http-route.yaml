@@ -9,7 +9,7 @@ spec:
       namespace: kube-system
       sectionName: https
   hostnames:
-    - books.potatolabs.uk
+    - book.potatolabs.uk
   rules:
     - backendRefs:
         - name: calibre-web
