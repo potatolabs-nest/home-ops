@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://git.potatolabs.uk/homelabs/home-ops.git
     targetRevision: main
-    path: gitops/calibre-web/resources
+    path: gitops/apps/calibre-web/resources
 
   destination:
     server: https://kubernetes.default.svc
