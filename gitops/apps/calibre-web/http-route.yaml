@@ -7,7 +7,7 @@ spec:
   parentRefs:
     - name: gateway-public
       namespace: kube-system
-      sectionName: http
+      sectionName: https
   hostnames:
     - books.potatolabs.uk
   rules:
