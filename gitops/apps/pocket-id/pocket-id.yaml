@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: ghcr.io/aclerici38/charts
     chart: pocket-id-operator
-    targetRevision: 0.14.3
+    targetRevision: 0.15.0
     helm:
       releaseName: pocket-id-operator
       values: |
