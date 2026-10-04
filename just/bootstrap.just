@@ -23,12 +23,12 @@ create_cluster_config:
 [doc("Bootstrap Cilium")]
 [working-directory('../gitops')]
 cilium: wait_for_api
-    kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/standard-install.yaml
+    kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.2/standard-install.yaml
     helm install cilium \
         --repo https://helm.cilium.io/ \
         cilium \
         --namespace kube-system \
-        --version 1.20.1 \
+        --version 1.20.2 \
         --set kubeProxyReplacement=true \
         --set k8sServiceHost=172.20.0.20 \
         --set k8sServicePort=6443 \
