@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://git.potatolabs.uk/homelabs/home-ops.git
+    repoURL: https://github.com/potatolabs-nest/home-ops.git
     targetRevision: main
     path: gitops/apps/calibre-web/resources
 
