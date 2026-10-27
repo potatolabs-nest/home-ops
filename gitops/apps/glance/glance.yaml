@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://repo.helmforge.dev
     chart: glance
-    targetRevision: 1.0.0
+    targetRevision: 1.0.1
 
     helm:
       releaseName: glance
